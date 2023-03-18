@@ -10,8 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     pass: "",
@@ -28,6 +30,7 @@ function Login() {
   const handleSubmit = (e) => {
     if (values.email === "user" && values.pass === "123") {
       alert("Usuario logado com sucesso");
+      navigate("/home");
     } else {
       alert("Usuario e/ou senha invalido(s)");
     }
