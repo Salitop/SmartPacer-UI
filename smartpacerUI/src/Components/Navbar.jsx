@@ -23,8 +23,8 @@ function Navbar() {
             <Grid item xs={5}>
               <Stack direction="row">
                 <Button>
-                  <Link to="/home" style={linkStyle}>
-                    <Typography color="white">Home</Typography>
+                  <Link to="/login" style={linkStyle}>
+                    <Typography color="white">Log-off</Typography>
                   </Link>
                 </Button>
               </Stack>

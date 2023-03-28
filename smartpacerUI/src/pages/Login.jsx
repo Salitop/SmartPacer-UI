@@ -28,9 +28,13 @@ function Login() {
   };
 
   const handleSubmit = (e) => {
-    if (values.email === "user" && values.pass === "123") {
+    if (values.email === "user") {
       alert("Usuario logado com sucesso");
-      navigate("/home");
+      if (values.pass === "aluno") {
+        navigate("/home-aluno");
+      } else if (values.pass === "professor") {
+        navigate("/home-prof");
+      }
     } else {
       alert("Usuario e/ou senha invalido(s)");
     }

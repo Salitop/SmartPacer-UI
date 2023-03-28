@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
+import HomeAluno from "./pages/HomeAluno";
+import HomeProfessor from "./pages/HomeProfessor";
 import Login from "./pages/Login";
 
 function App() {
@@ -7,8 +8,9 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route exact path="/home" element={<Home />} />
           <Route defaultView path="/login" element={<Login />} />
+          <Route exact path="/home-aluno" element={<HomeAluno />} />
+          <Route exact path="/home-prof" element={<HomeProfessor />} />
         </Routes>
       </Router>
     </>
