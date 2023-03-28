@@ -36,7 +36,7 @@ function Login() {
 
   return (
     <div>
-      <Container maxWidth="sm">
+      <Container maxWidth="lg">
         <Grid
           container
           spacing={2}
@@ -44,19 +44,18 @@ function Login() {
           justifyContent="center"
           style={{ minHeight: "100vh" }}
         >
-          <Paper elelvation={2} sx={{ padding: 5 }}>
-            <Typography variant="h4" fontWeight="bold" textAlign="center">
+          <Paper elelvation={2} sx={{ padding: 3 }}>
+            <Typography variant="h4" fontWeight="bold" textAlign="center" sx={{ paddingBottom: 5 }}>
               Visualizar Pacer
             </Typography>
             <form>
-              <Grid container direction="column" spacing={2}>
-                <Grid item>
+              <Grid container direction="column" spacing={4}>
+                <Grid item sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)'}}>
                   <TextField
-                    type="text"
-                    fullWidth
-                    label="semestre"
-                    placeholder="Semestre"
+                    type="text"                 
+                    label="Semestre"
                     variant="outlined"
+                    sx={{width: 150, justifySelf: "right"}}
                     required
                     onChange={(e) =>
                       setValues({ ...values, semestre: e.target.value })
@@ -64,17 +63,19 @@ function Login() {
                   />
                   <TextField
                     type={"text"}
-                    fullWidth
-                    label="ano"
-                    placeholder="Ano"
+                    label="Ano"
                     variant="outlined"
+                    sx={{width: 150, justifySelf: "center"}}
                     required
                     onChange={(e) =>
                       setValues({ ...values, ano: e.target.value })
                     }
                   />
+                  <Button variant="contained" sx={{width: 150, justifySelf: "left"}} onClick={eventoVoltar}>
+                    Acessar
+                  </Button>
                 </Grid>
-                <Grid item>
+                <Grid item sx={{alignSelf:"center", width: 500}}>
                     <Select
                     label="Sprint"
                     variant="outlined"
@@ -85,7 +86,7 @@ function Login() {
                       setValues({...values, IdSprint: e.target.value})}
                     </Select>
                 </Grid>
-                <Grid item>
+                <Grid item sx={{alignSelf:"center", width: 500}}>
                     <Select
                     label="Equipe"
                     variant="outlined"
@@ -96,11 +97,8 @@ function Login() {
                       setValues({...values, IdEquipe: e.target.value})}
                     </Select>
                 </Grid>
-                <Grid item>
-                  <Button fullWidth variant="contained" onClick={eventoVoltar}>
-                    Acessar
-                  </Button>
-                  <Button fullWidth variant="contained" onClick={eventoVoltar}>
+                <Grid item sx={{alignSelf:"center"}}>
+                  <Button variant="contained" onClick={eventoVoltar}>
                     Voltar
                   </Button>
                 </Grid>
