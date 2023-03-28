@@ -14,7 +14,7 @@ const linkStyle = {
   color: "white",
 };
 
-function Navbar() {
+function Navbar(props) {
   return (
     <>
       <AppBar position="fixed">
@@ -24,7 +24,7 @@ function Navbar() {
               <Stack direction="row">
                 <Button>
                   <Link to="/login" style={linkStyle}>
-                    <Typography color="white">Log-off</Typography>
+                    <Typography color="white">Login</Typography>
                   </Link>
                 </Button>
               </Stack>

@@ -12,12 +12,13 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(props) {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     pass: "",
     showPass: false,
+    login: props.login,
   });
 
   const handlePassVisibilty = () => {
@@ -29,7 +30,6 @@ function Login() {
 
   const handleSubmit = (e) => {
     if (values.email === "user") {
-      alert("Usuario logado com sucesso");
       if (values.pass === "aluno") {
         navigate("/home-aluno");
       } else if (values.pass === "professor") {

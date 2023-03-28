@@ -1,16 +1,17 @@
-import { Grid, Typography } from "@mui/material";
 import React from "react";
 
-function HomeAluno(props) {
+import { Grid, Typography } from "@mui/material";
+
+function Base(props) {
   return (
     <>
       <Grid container flexDirection="column" alignItems="center">
         <Grid item sx={{ marginTop: 10 }}>
-          <Typography variant="h3"> Smart Pacer - Bem vindo Aluno</Typography>
+          <Typography variant="h3">Smart Pacer - Bem vindo</Typography>
         </Grid>
       </Grid>
     </>
   );
 }
 
-export default HomeAluno;
+export default Base;
