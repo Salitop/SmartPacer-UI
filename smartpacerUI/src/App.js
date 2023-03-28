@@ -8,7 +8,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/home" element={<Home />} />
-          <Route defaultView path="/" element={<Login />} />
+          <Route defaultView path="/login" element={<Login />} />
         </Routes>
       </Router>
     </>
