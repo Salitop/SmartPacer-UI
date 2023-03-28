@@ -9,30 +9,53 @@ import {
 import React, { useState } from "react";
 import Select from 'react-select';
 import { useNavigate } from "react-router-dom";
+import Axios from 'axios'
 
-function Login() {
+function ViewPacer() {
   const navigate = useNavigate();
+  const [values, setValues] = useState();
+  const [sprints, setSprints] = useState();
+  const [equipes, setEquipes] = useState([]);
+  const [semestre, setSemestre] = useState();
+  const [ano, setAno] = useState();
+  const [idEquipe, setIdEquipe] = useState();
+  const [idSprint, setIdSprint] = useState();
 
-  const [values, setValues] = useState({
-    semestre: "",
-    ano: "",
-    IdEquipe: "",
-    IdSprint: ""
-  });
+  const sprintsT = [{value: '1', label: 'Sprint1'},
+  {value: '2', label: 'Sprint2'},
+  {value: '3', label: 'Sprint3'},
+  {value: '4', label: 'Sprint4'},];
 
-  const sprints = [{value: '1', label: 'Sprint1'},
-                   {value: '2', label: 'Sprint2'},
-                   {value: '3', label: 'Sprint3'},
-                   {value: '4', label: 'Sprint4'},];
 
-  const equipes = [{value: '1', label: 'Equipe1'},
-                   {value: '2', label: 'Equipe2'},
-                   {value: '3', label: 'Equipe3'},
-                   {value: '4', label: 'Equipe4'},]
+  React.useEffect(() => {
+    Axios.get(`http://127.0.0.1:5000/obterTodasEquipes`).then((response) => setValues(response.data))
+  }, []);
+
+  carregarEquipes()
+  
+
+  function carregarEquipes()
+  { //Evitar repetição do looping
+    if(equipes.length < values?.length){
+      for (let i = 0; i < values?.length; i++) {
+        equipes.push({value: values[i].idequipe, label: values[i].equipe})
+      }
+      console.log(values);
+      console.log(equipes);
+    }
+  }
 
   function eventoVoltar() {
       navigate("/login");
   };
+
+  function getSprints() {
+    //     setSprints = Axios.get(`????/obterSprintSemestreAno?semestre=${semestre}&ano=${ano}`)
+    //                            .then((response) => {setSprints(response.data)}) //Rota da nuvem para buscar as sprints
+
+    //Rota dando badRequest
+    Axios.get(`http://127.0.0.1:5000/obterSprintSemestreAno?semestre=${semestre}&ano=${ano}`).then((response) => {setSprints(response.data)})
+};
 
   return (
     <div>
@@ -57,9 +80,7 @@ function Login() {
                     variant="outlined"
                     sx={{width: 150, justifySelf: "right"}}
                     required
-                    onChange={(e) =>
-                      setValues({ ...values, semestre: e.target.value })
-                    }
+                    onChange={event => setSemestre(event.target.value)}
                   />
                   <TextField
                     type={"text"}
@@ -67,12 +88,10 @@ function Login() {
                     variant="outlined"
                     sx={{width: 150, justifySelf: "center"}}
                     required
-                    onChange={(e) =>
-                      setValues({ ...values, ano: e.target.value })
-                    }
+                    onChange={event => setAno(event.target.value)}
                   />
-                  <Button variant="contained" sx={{width: 150, justifySelf: "left"}} onClick={eventoVoltar}>
-                    Acessar
+                  <Button variant="contained" sx={{width: 150, justifySelf: "left"}} onClick={getSprints}>
+                    Pesquisar
                   </Button>
                 </Grid>
                 <Grid item sx={{alignSelf:"center", width: 500}}>
@@ -81,10 +100,9 @@ function Login() {
                     variant="outlined"
                     placeholder="Sprint"
                     required
-                    options={sprints}>
-                    onChange={(e) =>
-                      setValues({...values, IdSprint: e.target.value})}
-                    </Select>
+                    options={sprintsT}
+                    onChange={event => setIdSprint(event.target.value)}  
+                    />
                 </Grid>
                 <Grid item sx={{alignSelf:"center", width: 500}}>
                     <Select
@@ -92,10 +110,9 @@ function Login() {
                     variant="outlined"
                     placeholder="Equipe"
                     required
-                    options={equipes}>
-                    onChange={(e) =>
-                      setValues({...values, IdEquipe: e.target.value})}
-                    </Select>
+                    options={equipes}
+                    onChange={event => setIdEquipe(event.target.value)}  
+                    />
                 </Grid>
                 <Grid item sx={{alignSelf:"center"}}>
                   <Button variant="contained" onClick={eventoVoltar}>
@@ -111,4 +128,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ViewPacer;
