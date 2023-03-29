@@ -12,13 +12,12 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login(props) {
+function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     email: "",
     pass: "",
     showPass: false,
-    login: props.login,
   });
 
   const handlePassVisibilty = () => {

@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 
-function HomeAluno(props) {
+function HomeAluno() {
   return (
     <>
       <Grid container flexDirection="column" alignItems="center">

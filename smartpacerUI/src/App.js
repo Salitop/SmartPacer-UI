@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Components/Navbar";
 import Base from "./pages/Base";
@@ -6,17 +5,11 @@ import HomeAluno from "./pages/HomeAluno";
 import HomeProfessor from "./pages/HomeProfessor";
 import Login from "./pages/Login";
 
-function App(props) {
-  const [login, setLogin] = useState(false);
-
-  useEffect(() => {
-    setLogin(false);
-  }, []);
-
+function App() {
   return (
     <>
       <Router>
-        <Navbar login={login} />
+        <Navbar />
         <Routes>
           <Route exact path="/" element={<Base />} />
           <Route exact path="/login" element={<Login />} />

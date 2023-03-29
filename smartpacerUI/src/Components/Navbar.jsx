@@ -14,7 +14,7 @@ const linkStyle = {
   color: "white",
 };
 
-function Navbar(props) {
+function Navbar() {
   return (
     <>
       <AppBar position="fixed">
