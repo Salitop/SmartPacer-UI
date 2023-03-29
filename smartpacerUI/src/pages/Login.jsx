@@ -11,31 +11,29 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Service from "../Service";
 
 function Login() {
   const navigate = useNavigate();
-  const [values, setValues] = useState({
-    email: "",
-    pass: "",
-    showPass: false,
-  });
+  const [showPass, setShowPass] = useState(false);
+  const [nome, setNome] = useState();
+  const [senha, setSenha] = useState();
 
   const handlePassVisibilty = () => {
-    setValues({
-      ...values,
-      showPass: !values.showPass,
-    });
+    setShowPass(!showPass);
   };
 
-  const handleSubmit = (e) => {
-    if (values.email === "user") {
-      if (values.pass === "aluno") {
-        navigate("/home-aluno");
-      } else if (values.pass === "professor") {
-        navigate("/home-prof");
+  const loginUser = async () => {
+    try {
+      const resp = await Service.post("//localhost:5000/login", {
+        nome,
+        senha,
+      });
+      navigate("/home-aluno");
+    } catch (error) {
+      if (error.response.status === 401) {
+        alert("Usuario ou senha invalido");
       }
-    } else {
-      alert("Usuario e/ou senha invalido(s)");
     }
   };
 
@@ -59,26 +57,22 @@ function Login() {
                   <TextField
                     type="text"
                     fullWidth
-                    label="login"
-                    placeholder="login"
+                    label="nome"
+                    placeholder="nome"
                     variant="outlined"
                     required
-                    onChange={(e) =>
-                      setValues({ ...values, email: e.target.value })
-                    }
+                    onChange={(e) => setNome(e.target.value)}
                   />
                 </Grid>
                 <Grid item>
                   <TextField
-                    type={values.showPass ? "text" : "password"}
+                    type={showPass ? "text" : "password"}
                     fullWidth
                     label="Senha"
                     placeholder="senha"
                     variant="outlined"
                     required
-                    onChange={(e) =>
-                      setValues({ ...values, pass: e.target.value })
-                    }
+                    onChange={(e) => setSenha(e.target.value)}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -87,11 +81,7 @@ function Login() {
                             edge="end"
                             onClick={handlePassVisibilty}
                           >
-                            {values.showPass ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
+                            {showPass ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
                       ),
@@ -99,7 +89,11 @@ function Login() {
                   />
                 </Grid>
                 <Grid item>
-                  <Button fullWidth variant="contained" onClick={handleSubmit}>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    onClick={() => loginUser()}
+                  >
                     Acessar
                   </Button>
                 </Grid>
