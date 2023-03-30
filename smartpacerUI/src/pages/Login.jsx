@@ -29,7 +29,11 @@ function Login() {
         nome,
         senha,
       });
-      navigate("/home-aluno");
+      if (resp.data.nome === "aluno") {
+        navigate("/home-aluno");
+      } else if (resp.data.nome === "professor") {
+        navigate("/home-prof");
+      }
     } catch (error) {
       if (error.response.status === 401) {
         alert("Usuario ou senha invalido");
