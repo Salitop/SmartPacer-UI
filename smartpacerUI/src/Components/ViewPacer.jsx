@@ -4,44 +4,49 @@ import {
   Grid,
   Paper,
   TextField,
-  Typography
+  Typography,
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  TableContainer,
+  TableHead,
 } from "@mui/material";
 import React, { useState } from "react";
 import Select from 'react-select';
 import { useNavigate } from "react-router-dom";
-import Axios from 'axios'
+import Axios from 'axios';
 
 function ViewPacer() {
   const navigate = useNavigate();
   const [values, setValues] = useState();
-  const [sprints, setSprints] = useState();
+  const [sprints, setSprints] = useState([]);
   const [equipes, setEquipes] = useState([]);
   const [semestre, setSemestre] = useState();
   const [ano, setAno] = useState();
   const [idEquipe, setIdEquipe] = useState();
   const [idSprint, setIdSprint] = useState();
-
-  const sprintsT = [{value: '1', label: 'Sprint1'},
-  {value: '2', label: 'Sprint2'},
-  {value: '3', label: 'Sprint3'},
-  {value: '4', label: 'Sprint4'},];
+  const [sprintsList, setSprintsList] = useState([]);
+  const [statusEquipe, setStatusEquipe] = useState(Boolean)
+  const [statusSprint, setStatusSprint] = useState(Boolean)
 
 
   React.useEffect(() => {
+    setStatusEquipe(false);
+    setStatusSprint(false);
     Axios.get(`http://127.0.0.1:5000/obterTodasEquipes`).then((response) => setValues(response.data))
+    
   }, []);
 
   carregarEquipes()
   
 
   function carregarEquipes()
-  { //Evitar repetição do looping
+  { 
     if(equipes.length < values?.length){
       for (let i = 0; i < values?.length; i++) {
         equipes.push({value: values[i].idequipe, label: values[i].equipe})
       }
-      console.log(values);
-      console.log(equipes);
     }
   }
 
@@ -50,12 +55,24 @@ function ViewPacer() {
   };
 
   function getSprints() {
-    //     setSprints = Axios.get(`????/obterSprintSemestreAno?semestre=${semestre}&ano=${ano}`)
-    //                            .then((response) => {setSprints(response.data)}) //Rota da nuvem para buscar as sprints
-
-    //Rota dando badRequest
-    Axios.get(`http://127.0.0.1:5000/obterSprintSemestreAno?semestre=${semestre}&ano=${ano}`).then((response) => {setSprints(response.data)})
+    Axios.get('http://127.0.0.1:5000/obterSprintSemestreAno', { params: {"semestre": semestre, "ano": ano}}).then((response) => {setSprints(response.data)});
+    if(sprintsList.length <= 0){
+      for (let i = 0; i < sprints?.length; i++) {
+        sprintsList.push({value: sprints[i].idsprint, label: sprints[i].descricao})
+      }
+      if(sprintsList.length <= 0)
+        setStatusSprint(false);
+      else
+        setStatusSprint(true);
+    }
 };
+
+//Fazer salvar os Ids Selecionados e liberar o DDL da Equipe
+  function selecionarSprint(e){
+    console.log(e);
+    setIdSprint(e);
+    setStatusEquipe(true);
+  }
 
   return (
     <div>
@@ -96,16 +113,18 @@ function ViewPacer() {
                 </Grid>
                 <Grid item sx={{alignSelf:"center", width: 500}}>
                     <Select
+                    isDisabled = {!statusSprint}
                     label="Sprint"
                     variant="outlined"
                     placeholder="Sprint"
                     required
-                    options={sprintsT}
-                    onChange={event => setIdSprint(event.target.value)}  
+                    options={sprintsList}
+                    onChange={event => selecionarSprint(event.target.value)}  
                     />
                 </Grid>
                 <Grid item sx={{alignSelf:"center", width: 500}}>
                     <Select
+                    isDisabled = {!statusEquipe}
                     label="Equipe"
                     variant="outlined"
                     placeholder="Equipe"
