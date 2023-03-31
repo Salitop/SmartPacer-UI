@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Service from "../Service";
@@ -32,6 +32,19 @@ function HomeProfessor() {
             Smart Pacer - Bem vindo Professor
           </Typography>
           <Button onClick={() => logout()}>Sair</Button>
+          <Paper elelvation={2} sx={{ padding: 5 }}>
+            <Grid container direction="column" spacing={2}>
+              <Grid item>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={() => navigate("/viewPacer")}
+                >
+                  Visualizar Pacer
+                </Button>
+              </Grid>
+            </Grid>
+          </Paper>
         </Grid>
       </Grid>
     </>
