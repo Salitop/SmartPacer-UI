@@ -16,6 +16,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import Service from "../Service";
 
 function ViewPacer() {
   const navigate = useNavigate();
@@ -52,8 +53,8 @@ function ViewPacer() {
     navigate("/home-prof");
   }
 
-  function getSprints() {
-    Axios.get("http://127.0.0.1:5000/obterSprintSemestreAno", {
+  async function getSprints() {
+    await Service.get("http://127.0.0.1:5000/obterSprintSemestreAno", {
       params: { semestre: semestre, ano: ano },
     }).then((response) => {
       setSprints(response.data);
@@ -124,7 +125,7 @@ function ViewPacer() {
                   <Button
                     variant="contained"
                     sx={{ width: 150, justifySelf: "left" }}
-                    onClick={getSprints}
+                    onClick={() => getSprints()}
                   >
                     Pesquisar
                   </Button>
