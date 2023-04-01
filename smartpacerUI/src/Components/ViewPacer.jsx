@@ -30,64 +30,76 @@ function ViewPacer() {
   const [statusEquipe, setStatusEquipe] = useState(Boolean)
   const [statusSprint, setStatusSprint] = useState(Boolean)
   const [notasPacer, setNotasPacer] = useState([]);
+  const [fetchSprint, setFetchSprint] = useState();
 
-  function createData( nomeAluno, notaPacer ) {
-    return { nomeAluno, notaPacer };
-  }
-
-  const rows = [
-    createData('aluno1', 7),
-    createData('aluno2', 5),
-    createData('aluno3', 9),
-  ];
-
-
-  React.useEffect(() => {
+  const fetchDataEquipe = async () => {
     setStatusEquipe(false);
     setStatusSprint(false);
     Axios.get(`http://127.0.0.1:5000/obterTodasEquipes`).then((response) => setValues(response.data))
+  }
+
+  const fetchDataSprint = async () => {
+    Axios.get('http://127.0.0.1:5000/obterSprintSemestreAno', { params: {"semestre": semestre, "ano": ano}}).then((response) => {setSprints(response.data)});
+  }
+
+  const fetchDataNotas = async () => {
+    Axios.get('http://127.0.0.1:5000/visualizarNotasEquipeSprint', { params: {"idequipe": idEquipe, "idsprint": idSprint}}).then((response) => {setNotasPacer(response.data)});
+  }
+
+  // buscar Equipes
+  React.useEffect(() => {
+    fetchDataEquipe();
+  }, []);
+
+  // buscar Sprints
+  React.useEffect(() => {
     
   }, []);
 
-  carregarEquipes()
-  
+  // buscar Notas
+  React.useEffect(() => {
+    if (idEquipe && idSprint)
+      fetchDataNotas();
+  }, [idEquipe, idSprint]);
 
-  function carregarEquipes()
-  { 
-    if(equipes.length < values?.length){
-      for (let i = 0; i < values?.length; i++) {
-        equipes.push({value: values[i].idequipe, label: values[i].equipe})
-      }
+  // carregarEquipes
+  React.useEffect(() => {
+    if(equipes.length <= 0)
+    for (let i = 0; i < values?.length; i++) {
+      equipes.push({value: values[i].idequipe, label: values[i].equipe})
+    }   
+  }, [values]);
+
+  // carregar Sprints
+  React.useEffect(() => {
+    for (let i = 0; i < sprints?.length; i++) {
+      sprintsList.push({value: sprints[i].idsprint, label: sprints[i].descricao})
     }
-  }
-
-  function eventoVoltar() {
-      navigate("/login");
-  };
-
-  function getSprints() {
-    Axios.get('http://127.0.0.1:5000/obterSprintSemestreAno', { params: {"semestre": semestre, "ano": ano}}).then((response) => {setSprints(response.data)});
     if(sprintsList.length <= 0){
-      for (let i = 0; i < sprints?.length; i++) {
-        sprintsList.push({value: sprints[i].idsprint, label: sprints[i].descricao})
-      }
-      if(sprintsList.length <= 0){
-        setStatusSprint(false);
-      }
-      else
-        setStatusSprint(true);
+      setStatusSprint(false);
     }
-};
+    else
+      setStatusSprint(true);
+
+  }, [sprints]);
+
+function handleFetchDataSprint() {
+  fetchDataSprint();
+}
 
 const handleChange = (event) => {
-  setIdSprint({selectValue: event.value});
+  setIdSprint(event.value);
   setStatusEquipe(true);
   } 
 
 const carregarGrid = (event) => {
-  setIdEquipe({selectValue: event.value});
-  Axios.get('http://127.0.0.1:5000/visualizarNotasEquipeSprint', { params: {"idequipe": idEquipe, "idsprint": idSprint}}).then((response) => {setNotasPacer(response.data)});
+  setIdEquipe(event.value);
 }
+
+function eventoVoltar(){
+  navigate("/home")
+}
+
 
   return (
     <div>
@@ -122,7 +134,7 @@ const carregarGrid = (event) => {
                     required
                     onChange={event => setAno(event.target.value)}
                   />
-                  <Button variant="contained" sx={{width: 150, justifySelf: "left"}} onClick={getSprints}>
+                  <Button variant="contained" sx={{width: 150, justifySelf: "left"}} onClick={handleFetchDataSprint}>
                     Pesquisar
                   </Button>
                 </Grid>
@@ -159,13 +171,13 @@ const carregarGrid = (event) => {
         </TableHead>
         <TableBody>
           {/* trocar rows por notasPacer */}
-          {rows.map((row) => (
+          {notasPacer.map((row) => (
             <TableRow
               key={row.nomeAluno}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell> {row.nomeAluno} </TableCell>
-              <TableCell> {row.notaPacer} </TableCell>
+              <TableCell> {row.nomealuno} </TableCell>
+              <TableCell> {row.mediapacer} </TableCell>
             </TableRow>
           ))}
         </TableBody>
