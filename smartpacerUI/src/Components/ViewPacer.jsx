@@ -29,6 +29,17 @@ function ViewPacer() {
   const [sprintsList, setSprintsList] = useState([]);
   const [statusEquipe, setStatusEquipe] = useState(Boolean)
   const [statusSprint, setStatusSprint] = useState(Boolean)
+  const [notasPacer, setNotasPacer] = useState([]);
+
+  function createData( nomeAluno, notaPacer ) {
+    return { nomeAluno, notaPacer };
+  }
+
+  const rows = [
+    createData('aluno1', 7),
+    createData('aluno2', 5),
+    createData('aluno3', 9),
+  ];
 
 
   React.useEffect(() => {
@@ -60,19 +71,23 @@ function ViewPacer() {
       for (let i = 0; i < sprints?.length; i++) {
         sprintsList.push({value: sprints[i].idsprint, label: sprints[i].descricao})
       }
-      if(sprintsList.length <= 0)
+      if(sprintsList.length <= 0){
         setStatusSprint(false);
+      }
       else
         setStatusSprint(true);
     }
 };
 
-//Fazer salvar os Ids Selecionados e liberar o DDL da Equipe
-  function selecionarSprint(e){
-    console.log(e);
-    setIdSprint(e);
-    setStatusEquipe(true);
-  }
+const handleChange = (event) => {
+  setIdSprint({selectValue: event.value});
+  setStatusEquipe(true);
+  } 
+
+const carregarGrid = (event) => {
+  setIdEquipe({selectValue: event.value});
+  Axios.get('http://127.0.0.1:5000/visualizarNotasEquipeSprint', { params: {"idequipe": idEquipe, "idsprint": idSprint}}).then((response) => {setNotasPacer(response.data)});
+}
 
   return (
     <div>
@@ -119,7 +134,7 @@ function ViewPacer() {
                     placeholder="Sprint"
                     required
                     options={sprintsList}
-                    onChange={event => selecionarSprint(event.target.value)}  
+                    onChange={handleChange}  
                     />
                 </Grid>
                 <Grid item sx={{alignSelf:"center", width: 500}}>
@@ -130,8 +145,32 @@ function ViewPacer() {
                     placeholder="Equipe"
                     required
                     options={equipes}
-                    onChange={event => setIdEquipe(event.target.value)}  
+                    onChange={carregarGrid}  
                     />
+                </Grid>
+                <Grid sx={{alignSelf: "center", paddingTop: 8}}>
+                <TableContainer component={Paper}>
+      <Table sx={{ width: 450 }} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Nome</TableCell>
+            <TableCell >Nota (Média)</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {/* trocar rows por notasPacer */}
+          {rows.map((row) => (
+            <TableRow
+              key={row.nomeAluno}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell> {row.nomeAluno} </TableCell>
+              <TableCell> {row.notaPacer} </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
                 </Grid>
                 <Grid item sx={{alignSelf:"center"}}>
                   <Button variant="contained" onClick={eventoVoltar}>
