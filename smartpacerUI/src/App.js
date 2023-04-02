@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Base from "./pages/Base";
+import HomeAluno from "./pages/HomeAluno";
+import HomeProfessor from "./pages/HomeProfessor";
+import Login from "./pages/Login";
+import ViewPacer from "./pages/ViewPacer";
+import CadastrarPacer from "./pages/CadastrarPacer"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route exact path="/" element={<Base />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/home-aluno" element={<HomeAluno />} />
+          <Route exact path="/home-prof" element={<HomeProfessor />} />
+          <Route exact path="/viewPacer" element={<ViewPacer />} />
+          <Route exact path="/cadastrarPacer" element={<CadastrarPacer/>}/>
+        </Routes>
+      </Router>
+    </>
   );
 }
 

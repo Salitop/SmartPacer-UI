@@ -39,6 +39,4 @@ Com as devidas credenciais de aluno e professor cadastradas, existirá duas tela
 * Edryan Matheus dos Santos Maciel
 * Israel Augusto 
 * Luiz Miguel Macedo Andre
- * Pedro Sousa Lopes 
-
-
+* Pedro Sousa Lopes
