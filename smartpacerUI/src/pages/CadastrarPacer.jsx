@@ -5,12 +5,6 @@ import {
   Paper,
   TextField,
   Typography,
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableContainer,
-  TableHead,
 } from "@mui/material";
 import React, { useState } from "react";
 import Select from "react-select";
@@ -23,7 +17,6 @@ function ViewPacer() {
   const [sprintId, setSprintId] = useState();
   const [alunos, setAlunos] = useState([]);
   const [alunoAlvoId, setAlunoAlvoId] = useState();
-  const [alunoId, setAlunoId] = useState();
   const [alunosList, setAlunosList] = useState([]);
   const [idEquipe, setIdEquipe] = useState();
   const [sprintsList, setSprintsList] = useState([]);
@@ -31,6 +24,7 @@ function ViewPacer() {
   const [notaA, setNotaA] = useState();
   const [notaC, setNotaC] = useState();
   const [notaER, setNotaER] = useState();
+  const alunoId = localStorage.getItem('idUsuario')
 
   const fetchData = async () => {
     const currentDate = new Date();
@@ -48,8 +42,8 @@ function ViewPacer() {
                                      params: { semestre: semestreAtual, ano: currentYear },
     });
 
-    const resultAluno = await Axios.get("http://127.0.0.1:5000/obterAlunosPorIdEquipe", {
-                              params: { idequipe: idEquipe }, /*variavel global para pegar o Id da Equipe no qual o aluno está*/
+    const resultAluno = await Axios.get("http://127.0.0.1:5000/obterUsuarioPorIdUsuario", {
+                              params: { idusuario: alunoId }, /*variavel global para pegar o Id da Equipe no qual o aluno está*/
     });
     setAlunos(resultAluno.data);
     setSprints(resultSprint.data);
@@ -63,7 +57,7 @@ React.useEffect(() => {
     if (alunos?.length >= 0 || sprints?.length >= 0) {
       if (alunosList.length <= 0) {
         const newAlunosList = alunos.map((aluno) => ({
-          value: aluno.idusuario,
+          value: aluno.id,
           label: aluno.nome,
         }));
         setAlunosList(newAlunosList);
@@ -82,13 +76,13 @@ React.useEffect(() => {
     console.log("Id do aluno alvo: " + alunoAlvoId + " / Id da Sprint: " + sprintId + " / Id do usuário logado: " + alunoId);
 
     const dadosPacer ={
-        NotaP: notaP,
-        NotaA: notaA,
-        NotaC: notaC,
-        NotaER: notaER,
-        IdUsuario: alunoId,
-        IdUsuarioAvaliado: alunoAlvoId,
-        IdSprint: sprintId
+        notaP: notaP,
+        notaA: notaA,
+        notaC: notaC,
+        notaER: notaER,
+        usuario: alunoId,
+        usuarioAvaliado: alunoAlvoId,
+        idSprint: sprintId
     }
 
     console.log(dadosPacer);
