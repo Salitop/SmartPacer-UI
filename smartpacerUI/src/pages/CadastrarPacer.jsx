@@ -24,6 +24,8 @@ function ViewPacer() {
   const [notaA, setNotaA] = useState();
   const [notaC, setNotaC] = useState();
   const [notaER, setNotaER] = useState();
+  const [pontosPacer, setPontosPacer] = useState();
+  
   const alunoId = localStorage.getItem('idUsuario')
 
   const fetchData = async () => {
@@ -49,6 +51,13 @@ function ViewPacer() {
     setSprints(resultSprint.data);
 }
 
+const fetchDataNotaPacer = async () => {
+  const result = await Axios.get("http://127.0.0.1:5000/obterValorEquipeSprint", {
+                                   params: { idequipe: alunos[0].idEquipe, idsprint: sprintId },
+  });
+  setPontosPacer(result.data.valorSprint);
+}
+
 React.useEffect(() => {
     fetchData();
   }, []);
@@ -72,9 +81,11 @@ React.useEffect(() => {
     }
   }, [alunos, sprints]);
 
-  function eventoCadastrar(){
-    console.log("Id do aluno alvo: " + alunoAlvoId + " / Id da Sprint: " + sprintId + " / Id do usuário logado: " + alunoId);
+  React.useEffect(() => {
+    fetchDataNotaPacer()
+  }, [sprintId, alunoAlvoId]);
 
+  function eventoCadastrar(){
     const dadosPacer ={
         notaP: notaP,
         notaA: notaA,
@@ -172,6 +183,14 @@ React.useEffect(() => {
                     required
                     onChange={event => setNotaER(event.target.value)}
                   />
+                </Grid>
+                <Grid item sx={{display: "grid", gridTemplateColumns: "repeat(4, 1fr)"}}>
+                <Typography sx={{justifySelf: "right"}}>
+                  Total de pontos: {pontosPacer}
+                </Typography>
+                {/* <Text sx={{justifySelf: "left"}}>
+                  Pontos restantes: {totalPacerRestante}
+                </Text> */}
                 </Grid>
 
                 <Grid item sx={{ alignSelf: "center" }}>
