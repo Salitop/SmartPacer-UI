@@ -51,11 +51,6 @@ function ViewPacer() {
     fetchDataEquipe();
   }, []);
 
-  // buscar Sprints
-  React.useEffect(() => {
-    
-  }, []);
-
   // buscar Notas
   React.useEffect(() => {
     if (idEquipe && idSprint)
