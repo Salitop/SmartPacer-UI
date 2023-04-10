@@ -18,6 +18,9 @@ function HomeAluno() {
   const [nome, setNome] = useState();
   const [id, setId] = useState();
   const [showForm, setShowForm] = useState(false);
+  const [senhaAntiga, setSenhaAntiga] = useState();
+  const [senhaNova, setSenhaNova] = useState();
+  const [senhaNovaConf, setSenhaNovaConf] = useState();
 
   const handlePassVisibilty = () => {
     setShowPass(!showPass);
@@ -26,6 +29,10 @@ function HomeAluno() {
   const logout = async () => {
     await Service.post("//localhost:5000/logout");
     navigate("/login");
+  };
+
+  const handleChangePassword = () => {
+    console.log(senhaAntiga, senhaNova, senhaNovaConf);
   };
 
   const handleToggleForm = () => {
@@ -38,6 +45,7 @@ function HomeAluno() {
         const resp = await Service.get("//localhost:5000/@me");
         setId(resp.data.id);
         setNome(resp.data.nome);
+        console.log(nome, id);
       } catch (error) {
         console.log("Not authenticated");
       }
@@ -82,7 +90,7 @@ function HomeAluno() {
                 Alterar Senha
               </Typography>
               <form>
-                <Grid item>
+                <Grid item marginTop={2}>
                   <TextField
                     type={showPass ? "text" : "password"}
                     fullWidth
@@ -90,6 +98,7 @@ function HomeAluno() {
                     placeholder="Insira a senha antiga"
                     variant="outlined"
                     required
+                    onChange={(e) => setSenhaAntiga(e.target.value)}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -105,7 +114,7 @@ function HomeAluno() {
                     }}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item marginTop={2}>
                   <TextField
                     type={showPass ? "text" : "password"}
                     fullWidth
@@ -113,6 +122,7 @@ function HomeAluno() {
                     placeholder="Insira a nova senha"
                     variant="outlined"
                     required
+                    onChange={(e) => setSenhaNova(e.target.value)}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -128,7 +138,7 @@ function HomeAluno() {
                     }}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item marginTop={2}>
                   <TextField
                     type={showPass ? "text" : "password"}
                     fullWidth
@@ -136,6 +146,7 @@ function HomeAluno() {
                     placeholder="Confirme a nova senha"
                     variant="outlined"
                     required
+                    onChange={(e) => setSenhaNovaConf(e.target.value)}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -152,7 +163,12 @@ function HomeAluno() {
                   />
                 </Grid>
                 <Grid item>
-                  <Button variant="contained">Salvar Alterações</Button>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleChangePassword()}
+                  >
+                    Salvar Alterações
+                  </Button>
                 </Grid>
               </form>
             </Paper>
