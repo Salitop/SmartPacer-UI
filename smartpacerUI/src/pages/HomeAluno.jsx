@@ -13,17 +13,17 @@ function HomeAluno() {
     navigate("/login");
   };
 
-//   useEffect(() => {
-//     (async () => {
-//       try {
-//         const resp = await Service.get("//localhost:5000/@me");
-//         setId(resp.data.id);
-//         setNome(resp.data.nome);
-//       } catch (error) {
-//         console.log("Not authenticated");
-//       }
-//     })();
-//   });
+  //   useEffect(() => {
+  //     (async () => {
+  //       try {
+  //         const resp = await Service.get("//localhost:5000/@me");
+  //         setId(resp.data.id);
+  //         setNome(resp.data.nome);
+  //       } catch (error) {
+  //         console.log("Not authenticated");
+  //       }
+  //     })();
+  //   });
 
   return (
     <>
@@ -40,6 +40,15 @@ function HomeAluno() {
                   onClick={() => navigate("/cadastrarPacer")}
                 >
                   Cadastrar nota Pacer
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={() => navigate("/alterarsenha")}
+                >
+                  Alterar Senha
                 </Button>
               </Grid>
             </Grid>

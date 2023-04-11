@@ -5,7 +5,8 @@ import HomeAluno from "./pages/HomeAluno";
 import HomeProfessor from "./pages/HomeProfessor";
 import Login from "./pages/Login";
 import ViewPacer from "./pages/ViewPacer";
-import CadastrarPacer from "./pages/CadastrarPacer"
+import CadastrarPacer from "./pages/CadastrarPacer";
+import AlterarSenha from "./pages/AlterarSenha";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Route exact path="/home-aluno" element={<HomeAluno />} />
           <Route exact path="/home-prof" element={<HomeProfessor />} />
           <Route exact path="/viewPacer" element={<ViewPacer />} />
-          <Route exact path="/cadastrarPacer" element={<CadastrarPacer/>}/>
+          <Route exact path="/cadastrarPacer" element={<CadastrarPacer />} />
+          <Route exact path="/alterarSenha" element={<AlterarSenha />} />
         </Routes>
       </Router>
     </>
