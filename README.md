@@ -1,6 +1,6 @@
 # SmartPacer-UI 💻
 
-Em todas as sprints de API há um documento que precisa ser preenchido denominado PACER, com ele os membros da equipe se auto avaliam e avaliam seus Masters, gerando uma nota final. Esse preenchimento era realizado através de um Excel e enviado para o docente responsável pelo API da turma de forma um pouco trabalhosa. Com isso, iremos desenvolver um Software que realiza o cálculo das notas do Pacer, tornando o processo mais prático tanto para o docente quanto para o aluno.
+Problema: Em todas as sprints de API há um documento que precisa ser preenchido denominado PACER, com ele os membros da equipe se auto avaliam e avaliam seus Masters, gerando uma nota final. Esse preenchimento era realizado através de um Excel e enviado para o docente responsável pelo API da turma de forma um pouco trabalhosa. Com isso, iremos desenvolver um Software que realiza o cálculo das notas do Pacer, tornando o processo mais prático tanto para o docente quanto para o aluno.
 
 
 ## Tecnologias Utilizadas ##
@@ -34,6 +34,14 @@ Com as devidas credenciais de aluno e professor cadastradas, existirá duas tela
 ![ajuste dados](https://github.com/Salitop/SmartPacer-UI/blob/main/imagens/gestao%20turmas%20e%20alunos%20-%20professor.PNG)
 
 
+| Sprints       | Descrição                                                            | Data
+| ------------- | ---------------------------------------------------------------------|----------- |
+| Sprint 1      | Brainstorming para o desenvolvimento do projeto                      | 13/03
+| Sprint 2      | Desenvolvimento da Gestão do Projeto Web                             | 03/04
+| Sprint 3      | Disponilizado na Nuvem                                               | 24/04
+| Sprint 4      | Ajuste e correção de erros                                           | 15/05
+
+      
 ## Integrantes 👧👦 ##
 * Ana Clara Ferreira de Godoy 
 * Edryan Matheus dos Santos Maciel
