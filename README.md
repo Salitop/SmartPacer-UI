@@ -1,6 +1,6 @@
 # SmartPacer-UI 💻
 
-Problema: Em todas as sprints de API há um documento que precisa ser preenchido denominado PACER, com ele os membros da equipe se auto avaliam e avaliam seus Masters, gerando uma nota final. Esse preenchimento era realizado através de um Excel e enviado para o docente responsável pelo API da turma de forma um pouco trabalhosa. Com isso, iremos desenvolver um Software que realiza o cálculo das notas do Pacer, tornando o processo mais prático tanto para o docente quanto para o aluno.
+Em todas as sprints de API há um documento que precisa ser preenchido denominado PACER, com ele os membros da equipe se auto avaliam e avaliam seus Masters, gerando uma nota final. Esse preenchimento era realizado através de um Excel e enviado para o docente responsável pelo API da turma de forma um pouco trabalhosa. Com isso, iremos desenvolver um Software que realiza o cálculo das notas do Pacer, tornando o processo mais prático tanto para o docente quanto para o aluno.
 
 
 ## Tecnologias Utilizadas ##
