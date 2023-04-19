@@ -39,81 +39,63 @@ function GestaoSprint() {
   };
 
   return (
-    <div>
-      <Container maxWidth="lg">
-        <Grid
-          container
-          spacing={2}
-          direction="column"
-          justifyContent="center"
-          style={{ minHeight: "100vh" }}
-        >
-          <Paper elelvation={2} sx={{ padding: 3 }}>
-            <Typography
-              variant="h4"
-              fontWeight="bold"
-              textAlign="center"
-              sx={{ paddingBottom: 5 }}
-            >
-              Gestão de Sprints
-            </Typography>
-            <form>
-              <Grid container direction="column" spacing={4}>
-                <Grid item sx={{ alignSelf: "center", width: 500 }}>
-                  <Select
-                    value={sprint}
-                    onChange={handleChangeSprint}
-                    fullWidth
-                    name="Sprint"
+    <>
+      <Grid container flexDirection="column" alignItems="center">
+        <Grid item sx={{ marginTop: 10 }}>
+          <Typography variant="h3">Gestão Sprint</Typography>
+          <Button onClick={handleVoltarParaHome}>Voltar</Button>
+          <Paper elelvation={2} sx={{ padding: 5, width: 500 }}>
+            <Grid container direction="column" spacing={2}>
+              <Grid item>
+                <Grid container direction="column" spacing={4}>
+                  <Grid item sx={{ alignSelf: "center", width: 500 }}>
+                    <Select
+                      value={sprint}
+                      onChange={handleChangeSprint}
+                      fullWidth
+                      name="Sprint"
+                    >
+                      <MenuItem value={1}>Sprint 1</MenuItem>
+                      <MenuItem value={2}>Sprint 2</MenuItem>
+                    </Select>
+                  </Grid>
+                  <Grid item sx={{ alignSelf: "center", width: 500 }}>
+                    <Select
+                      value={equipe}
+                      onChange={handleChangeEquipe}
+                      fullWidth
+                      name="Equipe"
+                    >
+                      <MenuItem value={1}>Equipe 1</MenuItem>
+                      <MenuItem value={2}>Equipe 2</MenuItem>
+                    </Select>
+                  </Grid>
+                  <Grid
+                    item
+                    sx={{
+                      alignSelf: "center",
+                      width: 500,
+                    }}
                   >
-                    <MenuItem value={1}>Sprint 1</MenuItem>
-                    <MenuItem value={2}>Sprint 2</MenuItem>
-                  </Select>
-                </Grid>
-                <Grid item sx={{ alignSelf: "center", width: 500 }}>
-                  <Select
-                    value={equipe}
-                    onChange={handleChangeEquipe}
-                    fullWidth
-                    name="Equipe"
-                  >
-                    <MenuItem value={1}>Equipe 1</MenuItem>
-                    <MenuItem value={2}>Equipe 2</MenuItem>
-                  </Select>
-                </Grid>
-                <Grid
-                  item
-                  sx={{
-                    alignSelf: "center",
-                    width: 500,
-                  }}
-                >
-                  <TextField
-                    type="number"
-                    label="Nota Pacer"
-                    onChange={handleChangeNotaPacer}
-                    value={notaPacer}
-                  />
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    onClick={handleCadastrarNotaPacer}
-                  >
-                    Cadastrar Nota Pacer
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" onClick={handleVoltarParaHome}>
-                    Voltar
-                  </Button>
+                    <TextField
+                      type="number"
+                      label="Nota Pacer"
+                      onChange={handleChangeNotaPacer}
+                      value={notaPacer}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Button fullWidth variant="contained">
+                      Cadastrar nota pacer
+                    </Button>
+                  </Grid>
                 </Grid>
               </Grid>
-            </form>
+            </Grid>
           </Paper>
         </Grid>
-      </Container>
-    </div>
+      </Grid>
+    </>
   );
 }
 
