@@ -6,6 +6,7 @@ import HomeProfessor from "./pages/HomeProfessor";
 import Login from "./pages/Login";
 import ViewPacer from "./pages/ViewPacer";
 import CadastrarPacer from "./pages/CadastrarPacer"
+import viewAlunos from "./pages/ViewAlunos"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/home-prof" element={<HomeProfessor />} />
           <Route exact path="/viewPacer" element={<ViewPacer />} />
           <Route exact path="/cadastrarPacer" element={<CadastrarPacer/>}/>
+          <Route exact path="/viewAlunos" element={<viewAlunos/>}/>
         </Routes>
       </Router>
     </>
