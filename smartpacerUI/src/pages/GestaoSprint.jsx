@@ -17,6 +17,76 @@ function GestaoSprint() {
   const [equipe, setEquipe] = useState();
   const [sprint, setSprint] = useState();
   const [notaPacer, setNotaPacer] = useState(0);
+  const [values, setValues] = useState();
+  const [sprints, setSprints] = useState([]);
+  const [equipes, setEquipes] = useState([]);
+  const [semestre, setSemestre] = useState();
+  const [ano, setAno] = useState();
+  const [sprintsList, setSprintsList] = useState([]);
+
+  // obtem o semestre e ano atual
+  const fetchData = async () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // adiciona 1 pois os meses são indexados a partir de 0
+    var semestreAtual;
+
+    if (currentMonth >= 1 && currentMonth <= 6) {
+      setSemestre(1);
+    } else {
+      setSemestre(2);
+    }
+
+    setAno(currentYear);
+  };
+
+  //busca no banco todas as equipes
+  const fetchDataEquipe = async () => {
+    Axios.get(`http://127.0.0.1:5000/obterTodasEquipes`).then((response) =>
+      setValues(response.data)
+    );
+  };
+
+  // busca as sprints
+  const fetchDataSprint = async () => {
+    Axios.get("http://127.0.0.1:5000/obterSprintSemestreAno", {
+      params: { semestre: semestre, ano: ano },
+    }).then((response) => {
+      setSprints(response.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // buscar Equipes
+  useEffect(() => {
+    fetchDataEquipe();
+  }, []);
+
+  // buscar sprints
+  useEffect(() => {
+    fetchDataSprint();
+  }, []);
+
+  // carregar Equipes
+  useEffect(() => {
+    if (equipes.length <= 0)
+      for (let i = 0; i < values?.length; i++) {
+        equipes.push({ value: values[i].idequipe, label: values[i].equipe });
+      }
+  }, [values]);
+
+  // carregar Sprints
+  useEffect(() => {
+    for (let i = 0; i < sprints?.length; i++) {
+      sprintsList.push({
+        value: sprints[i].idsprint,
+        label: sprints[i].descricao,
+      });
+    }
+  }, [sprints]);
 
   const handleChangeSprint = (event) => {
     setSprint(event.target.value);
@@ -54,10 +124,8 @@ function GestaoSprint() {
                       onChange={handleChangeSprint}
                       fullWidth
                       name="Sprint"
-                    >
-                      <MenuItem value={1}>Sprint 1</MenuItem>
-                      <MenuItem value={2}>Sprint 2</MenuItem>
-                    </Select>
+                      options={sprintsList}
+                    />
                   </Grid>
                   <Grid item sx={{ alignSelf: "center", width: 500 }}>
                     <Select
@@ -65,10 +133,8 @@ function GestaoSprint() {
                       onChange={handleChangeEquipe}
                       fullWidth
                       name="Equipe"
-                    >
-                      <MenuItem value={1}>Equipe 1</MenuItem>
-                      <MenuItem value={2}>Equipe 2</MenuItem>
-                    </Select>
+                      options={equipes}
+                    />
                   </Grid>
                   <Grid
                     item
@@ -85,7 +151,11 @@ function GestaoSprint() {
                     />
                   </Grid>
                   <Grid item>
-                    <Button fullWidth variant="contained">
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={handleCadastrarNotaPacer}
+                    >
                       Cadastrar nota pacer
                     </Button>
                   </Grid>
