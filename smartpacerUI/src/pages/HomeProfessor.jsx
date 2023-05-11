@@ -43,6 +43,15 @@ function HomeProfessor() {
                   Visualizar Pacer
                 </Button>
               </Grid>
+              <Grid item>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={() => navigate("/viewAluno")}
+                >
+                  Visualizar Alunos
+                </Button>
+              </Grid>
             </Grid>
           </Paper>
         </Grid>
