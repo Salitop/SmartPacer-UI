@@ -69,7 +69,7 @@ import {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell> {row.nome} </TableCell> 
-                <TableCell> {row.nomeequipe} </TableCell>
+                <TableCell> {row.nomeEquipe} </TableCell>
                 <TableCell> Icones </TableCell>
               </TableRow>
             ))}

@@ -161,7 +161,11 @@ function eventoVoltar(){
         <TableHead>
           <TableRow>
             <TableCell>Nome</TableCell>
-            <TableCell >Nota (Média)</TableCell>
+            <TableCell>Média P</TableCell>
+            <TableCell>Média A</TableCell>
+            <TableCell>Média C</TableCell>
+            <TableCell>Média ER</TableCell>
+            <TableCell>Média total</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -172,6 +176,10 @@ function eventoVoltar(){
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell> {row.nomealuno} </TableCell>
+              <TableCell> {row.mediap} </TableCell>
+              <TableCell> {row.mediaa} </TableCell>
+              <TableCell> {row.mediac} </TableCell>
+              <TableCell> {row.mediaer} </TableCell>
               <TableCell> {row.mediapacer} </TableCell>
             </TableRow>
           ))}
