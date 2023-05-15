@@ -52,6 +52,7 @@ function ViewPacer() {
 }
 
 const fetchDataNotaPacer = async () => {
+  setPontosPacer(0);
   const result = await Axios.get("http://127.0.0.1:5000/obterValorEquipeSprint", {
                                    params: { idequipe: alunos[0].idEquipe, idsprint: sprintId },
   });

@@ -47,7 +47,7 @@ function HomeProfessor() {
                 <Button
                   fullWidth
                   variant="contained"
-                  onClick={() => navigate("/viewAluno")}
+                  onClick={() => navigate("/viewAlunos")}
                 >
                   Visualizar Alunos
                 </Button>
