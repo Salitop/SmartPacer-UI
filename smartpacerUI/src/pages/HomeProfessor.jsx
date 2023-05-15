@@ -53,18 +53,9 @@ function HomeProfessor() {
                 <Button
                   fullWidth
                   variant="contained"
-                  onClick={() => navigate("/viewPacer")}
+                  onClick={() => navigate("/viewAlunos")}
                 >
-                  Gestão Alunos
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  onClick={() => navigate("/viewPacer")}
-                >
-                  Gestão Turma
+                  Visualizar Alunos
                 </Button>
               </Grid>
             </Grid>
