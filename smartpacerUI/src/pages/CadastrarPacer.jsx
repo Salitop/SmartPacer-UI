@@ -107,7 +107,7 @@ React.useEffect(() => {
   }
 
   function eventoVoltar() {
-    navigate("/home");
+    navigate("/home-aluno");
   }
 
   return (

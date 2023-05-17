@@ -92,7 +92,7 @@ const carregarGrid = (event) => {
 }
 
 function eventoVoltar(){
-  navigate("/home")
+  navigate("/home-prof")
 }
 
 

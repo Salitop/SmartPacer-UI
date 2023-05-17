@@ -30,7 +30,6 @@ function HomeAluno() {
       <Grid container flexDirection="column" alignItems="center">
         <Grid item sx={{ marginTop: 10 }}>
           <Typography variant="h3">Smart Pacer - Bem vindo Aluno</Typography>
-          <Button onClick={() => logout()}>Sair</Button>
           <Paper elelvation={2} sx={{ padding: 5 }}>
             <Grid container direction="column" spacing={2}>
               <Grid item>
@@ -40,6 +39,15 @@ function HomeAluno() {
                   onClick={() => navigate("/cadastrarPacer")}
                 >
                   Cadastrar nota Pacer
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={() => logout()}
+                >
+                  Sair
                 </Button>
               </Grid>
             </Grid>
