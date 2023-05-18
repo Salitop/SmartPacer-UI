@@ -31,7 +31,7 @@ import {
   }, []);
   
   function eventoVoltar(){
-    navigate("/home")
+    navigate("/home-prof")
   }
   
   
@@ -58,7 +58,6 @@ import {
             <TableRow>
               <TableCell>Nome</TableCell>
               <TableCell>Equipe</TableCell>
-              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -70,7 +69,6 @@ import {
               >
                 <TableCell> {row.nome} </TableCell> 
                 <TableCell> {row.nomeEquipe} </TableCell>
-                <TableCell> Icones </TableCell>
               </TableRow>
             ))}
           </TableBody>
