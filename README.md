@@ -1,5 +1,6 @@
 # SmartPacer-UI 💻
 
+
 ![Badge em Desenvolvimento](https://img.shields.io/badge/Status-Developing-yellowgreen)
 
 
@@ -16,15 +17,44 @@ The filling was done using Excel and sent to the Professor responsible for the A
 * Python Flask
 * Mysql
 
+## Product Backlog 📌
+
+Sprint 1
+- [x] Login screen ✅
+
+- [x] Pacer note registration screen ✅
+
+- [x] Student menu ✅
+
+- [x] Teacher menu ✅
+
+
+
+Sprint 2
+- [x] Student Manegement ✅
+
+- [x] Database ✅
+
+- [x] Change Login password ✅
+
+Sprint 3
+- [ ] Pacer management points limit
+
+- [ ] Pacer registration and visualization
+
+Sprint 4
+- [ ] Bug fixes and make available in the cloud
+
+
 
 ##  Delivery Schedule 📋
 
 | Sprints       | Description                                                           | Date
 | ------------- | ---------------------------------------------------------------------|----------- |
-| Sprint 1      | Brainstorming for project development                                 | 13/03
-| Sprint 2      | Web Project Management Development                                    | 03/04
-| Sprint 3      | Make available in the Cloud                                           | 24/04
-| Sprint 4      | Adjustments and bug fixes                                             | 15/05
+| Sprint 1      | Brainstorming for project development                                 | 13/03 a 02/04
+| Sprint 2      | Student manegement and databases                                      | 03/04 a 23/04
+| Sprint 3      | finalization of development items                                     | 24/04 a 14/05
+| Sprint 4      | Adjustments, bug fixes and make available in the Cloud                | 15/05 a 04/06
 
       
 ## Members 👧👦 ##
@@ -32,4 +62,3 @@ The filling was done using Excel and sent to the Professor responsible for the A
 * Edryan Matheus dos Santos Maciel
 * Israel Augusto 
 * Luiz Miguel Macedo Andre
-* Pedro Sousa Lopes
