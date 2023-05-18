@@ -67,6 +67,7 @@ function ViewPacer() {
 
   // carregar Sprints
   React.useEffect(() => {
+    if(sprintsList.length <= 0){
     for (let i = 0; i < sprints?.length; i++) {
       sprintsList.push({value: sprints[i].idsprint, label: sprints[i].descricao})
     }
@@ -75,6 +76,7 @@ function ViewPacer() {
     }
     else
       setStatusSprint(true);
+    }
 
   }, [sprints]);
 

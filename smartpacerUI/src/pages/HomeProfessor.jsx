@@ -1,12 +1,9 @@
 import { Button, Grid, Paper, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import Service from "../Service";
 
 function HomeProfessor() {
   const navigate = useNavigate();
-  const [id, setId] = useState();
-  const [nome, setNome] = useState();
 
   const logout = async () => {
     // await Service.post("//localhost:5000/logout");
@@ -40,6 +37,15 @@ function HomeProfessor() {
                   onClick={() => navigate("/viewPacer")}
                 >
                   Visualizar Pacer
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={() => navigate("/gestaoSprint")}
+                >
+                  Gestão Sprint
                 </Button>
               </Grid>
               <Grid item>
