@@ -22,7 +22,7 @@ import {
     const [alunoInfo, setAlunoInfo] = useState([]);
   
     const fetchDataAluno = async () => {
-      Axios.get('http://127.0.0.1:5000/obterUsuarioAndEquipe').then((response) => {setAlunoInfo(response.data)});
+      Axios.get('http://edryanmaciel.pythonanywhere.com/obterUsuarioAndEquipe').then((response) => {setAlunoInfo(response.data)});
     }
 
       // buscar Equipes
