@@ -24,7 +24,7 @@ function Login() {
   };
 
   const loginUser = async () => {
-      const resp = await Service.post("//localhost:5000/login", {
+      const resp = await Service.post("http://edryanmaciel.pythonanywhere.com/login", {
         login,
         senha,
       });
