@@ -18,7 +18,6 @@ function ViewPacer() {
   const [alunos, setAlunos] = useState([]);
   const [alunoAlvoId, setAlunoAlvoId] = useState();
   const [alunosList, setAlunosList] = useState([]);
-  const [idEquipe, setIdEquipe] = useState();
   const [sprintsList, setSprintsList] = useState([]);
   const [notaP, setNotaP] = useState();
   const [notaA, setNotaA] = useState();
@@ -40,11 +39,11 @@ function ViewPacer() {
         semestreAtual = 2;
     }
 
-    const resultSprint = await Axios.get("http://127.0.0.1:5000/obterSprintSemestreAno", {
+    const resultSprint = await Axios.get("https://edryanmaciel.pythonanywhere.com/obterSprintSemestreAno", {
                                      params: { semestre: semestreAtual, ano: currentYear },
     });
 
-    const resultAluno = await Axios.get("http://127.0.0.1:5000/obterUsuarioPorIdUsuario", {
+    const resultAluno = await Axios.get("https://edryanmaciel.pythonanywhere.com/obterUsuarioPorIdUsuario", {
                               params: { idusuario: alunoId }, /*variavel global para pegar o Id da Equipe no qual o aluno está*/
     });
     setAlunos(resultAluno.data);
@@ -53,7 +52,7 @@ function ViewPacer() {
 
 const fetchDataNotaPacer = async () => {
   setPontosPacer(0);
-  const result = await Axios.get("http://127.0.0.1:5000/obterValorEquipeSprint", {
+  const result = await Axios.get("https://edryanmaciel.pythonanywhere.com/obterValorEquipeSprint", {
                                    params: { idequipe: alunos[0].idEquipe, idsprint: sprintId },
   });
   setPontosPacer(result.data.valorSprint);
@@ -78,6 +77,7 @@ React.useEffect(() => {
           label: sprint.descricao,
         }));
         setSprintsList(newSprintsList);
+        console.log(sprintsList);
       }
     }
   }, [alunos, sprints]);
@@ -99,7 +99,7 @@ React.useEffect(() => {
 
     console.log(dadosPacer);
 
-    Axios.post('http://127.0.0.1:5000/cadastrarNotas', dadosPacer, {
+    Axios.post('https://edryanmaciel.pythonanywhere.com/cadastrarNotas', dadosPacer, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -107,7 +107,7 @@ React.useEffect(() => {
   }
 
   function eventoVoltar() {
-    navigate("/home");
+    navigate("/home-aluno");
   }
 
   return (

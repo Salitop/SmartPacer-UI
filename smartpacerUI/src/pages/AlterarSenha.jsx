@@ -8,22 +8,37 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 
 function AlterarSenha() {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
-  const [senhaAntiga, setSenhaAntiga] = useState();
-  const [senhaNova, setSenhaNova] = useState();
-  const [senhaNovaConf, setSenhaNovaConf] = useState();
+  const [novaSenha, setnovaSenha] = useState();
+  const [novaSenhaConf, setnovaSenhaConf] = useState();
+  const [idUsuario, setIdUsuario] = useState();
+
+  useEffect(() => {
+    setIdUsuario(localStorage.getItem("id"));
+  }, [idUsuario]);
 
   // Esta função deverá fazer uma requisição ao servidor de modo assincrono
   // por enquanto apenas mostra os valores inseridos no formulario e navega
   // para a tela home
   const handleChangePassword = async () => {
-    console.log(senhaAntiga, senhaNova, senhaNovaConf);
-    navigate("/home-aluno");
+    const resp = await Axios.post("https://edryanmaciel.pythonanywhere.com/alterarSenha", {
+      idUsuario,
+      novaSenha,
+      novaSenhaConf,
+    });
+
+    if (resp.status === 200) {
+      alert("Senha alterada com sucesso!");
+      navigate("/home-aluno");
+    } else {
+      console.log(resp.data);
+    }
   };
 
   const handlePassVisibilty = () => {
@@ -50,35 +65,11 @@ function AlterarSenha() {
                 <TextField
                   type={showPass ? "text" : "password"}
                   fullWidth
-                  label="Senha antiga"
-                  placeholder="Insira a senha antiga"
-                  variant="outlined"
-                  required
-                  onChange={(e) => setSenhaAntiga(e.target.value)}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password"
-                          edge="end"
-                          onClick={handlePassVisibilty}
-                        >
-                          {showPass ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item marginTop={2}>
-                <TextField
-                  type={showPass ? "text" : "password"}
-                  fullWidth
                   label="Nova senha"
                   placeholder="Insira a nova senha"
                   variant="outlined"
                   required
-                  onChange={(e) => setSenhaNova(e.target.value)}
+                  onChange={(e) => setnovaSenha(e.target.value)}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -102,7 +93,7 @@ function AlterarSenha() {
                   placeholder="Confirme a nova senha"
                   variant="outlined"
                   required
-                  onChange={(e) => setSenhaNovaConf(e.target.value)}
+                  onChange={(e) => setnovaSenhaConf(e.target.value)}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">

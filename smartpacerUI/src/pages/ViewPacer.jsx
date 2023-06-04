@@ -35,15 +35,15 @@ function ViewPacer() {
   const fetchDataEquipe = async () => {
     setStatusEquipe(false);
     setStatusSprint(false);
-    Axios.get(`http://127.0.0.1:5000/obterTodasEquipes`).then((response) => setValues(response.data))
+    Axios.get(`https://edryanmaciel.pythonanywhere.com/obterTodasEquipes`).then((response) => setValues(response.data))
   }
 
   const fetchDataSprint = async () => {
-    Axios.get('http://127.0.0.1:5000/obterSprintSemestreAno', { params: {"semestre": semestre, "ano": ano}}).then((response) => {setSprints(response.data)});
+    Axios.get('https://edryanmaciel.pythonanywhere.com/obterSprintSemestreAno', { params: {"semestre": semestre, "ano": ano}}).then((response) => {setSprints(response.data)});
   }
 
   const fetchDataNotas = async () => {
-    Axios.get('http://127.0.0.1:5000/visualizarNotasEquipeSprint', { params: {"idequipe": idEquipe, "idsprint": idSprint}}).then((response) => {setNotasPacer(response.data)});
+    Axios.get('https://edryanmaciel.pythonanywhere.com/visualizarNotasEquipeSprint', { params: {"idequipe": idEquipe, "idsprint": idSprint}}).then((response) => {setNotasPacer(response.data)});
   }
 
   // buscar Equipes
@@ -67,6 +67,7 @@ function ViewPacer() {
 
   // carregar Sprints
   React.useEffect(() => {
+    if(sprintsList.length <= 0){
     for (let i = 0; i < sprints?.length; i++) {
       sprintsList.push({value: sprints[i].idsprint, label: sprints[i].descricao})
     }
@@ -75,6 +76,7 @@ function ViewPacer() {
     }
     else
       setStatusSprint(true);
+    }
 
   }, [sprints]);
 
@@ -92,7 +94,7 @@ const carregarGrid = (event) => {
 }
 
 function eventoVoltar(){
-  navigate("/home")
+  navigate("/home-prof")
 }
 
 

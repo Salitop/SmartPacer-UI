@@ -22,7 +22,7 @@ import {
     const [alunoInfo, setAlunoInfo] = useState([]);
   
     const fetchDataAluno = async () => {
-      Axios.get('http://127.0.0.1:5000/obterUsuarioAndEquipe').then((response) => {setAlunoInfo(response.data)});
+      Axios.get('https://edryanmaciel.pythonanywhere.com/obterUsuarioAndEquipe').then((response) => {setAlunoInfo(response.data)});
     }
 
       // buscar Equipes
@@ -31,7 +31,7 @@ import {
   }, []);
   
   function eventoVoltar(){
-    navigate("/home")
+    navigate("/home-prof")
   }
   
   
@@ -58,7 +58,6 @@ import {
             <TableRow>
               <TableCell>Nome</TableCell>
               <TableCell>Equipe</TableCell>
-              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -70,7 +69,6 @@ import {
               >
                 <TableCell> {row.nome} </TableCell> 
                 <TableCell> {row.nomeEquipe} </TableCell>
-                <TableCell> Icones </TableCell>
               </TableRow>
             ))}
           </TableBody>
