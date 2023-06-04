@@ -6,21 +6,9 @@ function HomeProfessor() {
   const navigate = useNavigate();
 
   const logout = async () => {
-    // await Service.post("//localhost:5000/logout");
     navigate("/login");
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const resp = await Service.get("//localhost:5000/@me");
-  //       setId(resp.data.id);
-  //       setNome(resp.data.nome);
-  //     } catch (error) {
-  //       console.log("Not authenticated");
-  //     }
-  //   })();
-  // });
   return (
     <>
       <Grid container flexDirection="column" alignItems="center">

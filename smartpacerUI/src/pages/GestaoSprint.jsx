@@ -1,7 +1,9 @@
 import {
   Button,
   Container,
+  FormControl,
   Grid,
+  InputLabel,
   MenuItem,
   Paper,
   TextField,
@@ -23,7 +25,6 @@ function GestaoSprint() {
   const [sprintsList, setSprintsList] = useState([]);
   const [idEquipe, setIdEquipe] = useState();
   const [sprintId, setSprintId] = useState();
-
   // obtem o semestre e ano atual
   React.useEffect(() => {
 
@@ -83,8 +84,41 @@ function GestaoSprint() {
         <Typography variant="h4" fontWeight="bold" textAlign="center" sx={{ paddingBottom: 5 }}>Gestão Sprint</Typography>
           <Paper elelvation={2} sx={{ padding: 5, width: 500 }}>
               <Grid item>
-                <Grid container direction="column" spacing={4}>
+                <Grid
+                  item
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                  }}
+                >
+                  <TextField
+                    type="text"
+                    label="Semestre"
+                    variant="outlined"
+                    sx={{ width: 150, justifySelf: "right" }}
+                    required
+                    onChange={(e) => setSemestre(e.target.value)}
+                  />
+                  <TextField
+                    type={"text"}
+                    label="Ano"
+                    variant="outlined"
+                    sx={{ width: 150, justifySelf: "center" }}
+                    required
+                    onChange={(e) => setAno(e.target.value)}
+                  />
+                  <Button
+                    variant="contained"
+                    sx={{ width: 150, justifySelf: "left" }}
+                    onClick={handleFetchDataSprint}
+                  >
+                    Pesquisar
+                  </Button>
+                </Grid>
+
+                <Grid container direction="column" spacing={4} marginTop={2}>
                   <Grid item sx={{ alignSelf: "center", width: 500 }}>
+                    <InputLabel id="sprint-select-label">Sprint</InputLabel>
                     <Select
                     label="Sprint"
                     variant="outlined"
@@ -94,7 +128,9 @@ function GestaoSprint() {
                     onChange={event => setSprintId(event.value)}
                     />
                   </Grid>
+
                   <Grid item sx={{ alignSelf: "center", width: 500 }}>
+                    <InputLabel id="equipe-select-label">Equipe</InputLabel>
                     <Select
                     label="Equipe"
                     variant="outlined"
@@ -122,7 +158,7 @@ function GestaoSprint() {
                     <Button
                       fullWidth
                       variant="contained"
-                      onClick={handleCadastrarNotaPacer}
+                      onClick={handleFetchCadastrarNotaPacer}
                     >
                       Cadastrar nota pacer
                     </Button>

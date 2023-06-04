@@ -24,26 +24,24 @@ function Login() {
   };
 
   const loginUser = async () => {
-      const resp = await Service.post("http://edryanmaciel.pythonanywhere.com/login", {
+      const resp = await Service.post("https://edryanmaciel.pythonanywhere.com/login", {
         login,
         senha,
       });
 
-      localStorage.setItem('idUsuario', resp.data.id);
+    localStorage.setItem("id", resp.data.id);
+    localStorage.setItem("nome", resp.data.nome);
 
-      debugger;
-      if (resp.data.login === "professor")
-        navigate("/home-prof");
-      
-      else{
-        if (resp.data.login != "professor") {
-          navigate("/home-aluno");
-        }
-         else {
-          alert("Usuario ou senha invalido");
-        }
+    debugger;
+    if (resp.data.login === "professor") navigate("/home-prof");
+    else {
+      if (resp.data.login != "professor") {
+        navigate("/home-aluno");
+      } else {
+        alert("Usuario ou senha invalido");
       }
     }
+  };
 
   return (
     <div>
@@ -65,8 +63,8 @@ function Login() {
                   <TextField
                     type="text"
                     fullWidth
-                    label="nome"
-                    placeholder="nome"
+                    label="Login"
+                    placeholder="Login"
                     variant="outlined"
                     required
                     onChange={(e) => setLogin(e.target.value)}
