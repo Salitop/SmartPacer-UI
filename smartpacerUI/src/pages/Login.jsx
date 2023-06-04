@@ -24,10 +24,10 @@ function Login() {
   };
 
   const loginUser = async () => {
-    const resp = await Service.post("//localhost:5000/login", {
-      login,
-      senha,
-    });
+      const resp = await Service.post("https://edryanmaciel.pythonanywhere.com/login", {
+        login,
+        senha,
+      });
 
     localStorage.setItem("id", resp.data.id);
     localStorage.setItem("nome", resp.data.nome);
