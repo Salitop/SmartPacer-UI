@@ -9,27 +9,22 @@ function HomeAluno() {
   const [nome, setNome] = useState();
 
   const logout = async () => {
-    // await Service.post("//localhost:5000/logout");
     navigate("/login");
   };
 
-  //   useEffect(() => {
-  //     (async () => {
-  //       try {
-  //         const resp = await Service.get("//localhost:5000/@me");
-  //         setId(resp.data.id);
-  //         setNome(resp.data.nome);
-  //       } catch (error) {
-  //         console.log("Not authenticated");
-  //       }
-  //     })();
-  //   });
+  useEffect(() => {
+    setId(localStorage.getItem("id"));
+    setNome(localStorage.getItem("nome"));
+  }, []);
 
   return (
     <>
       <Grid container flexDirection="column" alignItems="center">
         <Grid item sx={{ marginTop: 10 }}>
-          <Typography variant="h3">Smart Pacer - Bem vindo Aluno</Typography>
+          <Typography variant="h3">
+            Smart Pacer - Bem vindo Aluno(a) {nome}
+          </Typography>
+          <Button onClick={() => logout()}>Sair</Button>
           <Paper elelvation={2} sx={{ padding: 5 }}>
             <Grid container direction="column" spacing={2}>
               <Grid item>
