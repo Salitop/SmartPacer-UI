@@ -45,6 +45,15 @@ function HomeAluno() {
                   Alterar Senha
                 </Button>
               </Grid>
+              <Grid item>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={() => logout()}
+                >
+                  Sair
+                  </Button>
+                 </Grid>
             </Grid>
           </Paper>
         </Grid>

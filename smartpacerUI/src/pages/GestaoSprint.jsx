@@ -6,99 +6,83 @@ import {
   InputLabel,
   MenuItem,
   Paper,
-  Select,
   TextField,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Select from 'react-select';
 import Axios from "axios";
 
 function GestaoSprint() {
   const navigate = useNavigate();
-  const [semestre, setSemestre] = useState(0);
-  const [ano, setAno] = useState(0);
-  const [idSprint, setIdSprint] = useState(0);
-  const [idEquipe, setIdEquipe] = useState(0);
-  const [nota, setNota] = useState(0);
+  const [equipe, setEquipe] = useState([]);
+  const [sprint, setSprint] = useState([]);
+  const [notaPacer, setNotaPacer] = useState(0);
+  const [values, setValues] = useState([]);
   const [sprints, setSprints] = useState([]);
   const [equipes, setEquipes] = useState([]);
-  const [equipesList, setEquipesList] = useState([]);
   const [sprintsList, setSprintsList] = useState([]);
+  const [idEquipe, setIdEquipe] = useState();
+  const [sprintId, setSprintId] = useState();
+  // obtem o semestre e ano atual
+  React.useEffect(() => {
+
+    fetchDataSprint();
+    fetchDataEquipe();
+  }, []);
+
+  const fetchDataSprint = async () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // adiciona 1 pois os meses são indexados a partir de 0
+    var semestreAtual;
+
+    if (currentMonth >= 1 && currentMonth <= 6) {
+        semestreAtual = 1;
+    } else {
+        semestreAtual = 2;
+    }
+    Axios.get('http://127.0.0.1:5000/obterSprintSemestreAno', { params: {"semestre": semestreAtual, "ano": currentYear}}).then((response) => {setSprints(response.data)});
+  }
+
+  const fetchDataEquipe = async () => {
+    Axios.get(`http://127.0.0.1:5000/obterTodasEquipes`).then((response) => setValues(response.data))
+  }
+
+    // carregarEquipes
+    React.useEffect(() => {
+      if(equipes.length <= 0)
+      for (let i = 0; i < values?.length; i++) {
+        equipes.push({value: values[i].idequipe, label: values[i].equipe})
+      }   
+      console.log(equipes)
+    }, [values]);
+
+  // carregar Sprints
+  React.useEffect(() => {
+    if(sprintsList.length <= 0){
+      for (let i = 0; i < sprints?.length; i++) {
+        sprintsList.push({value: sprints[i].idsprint, label: sprints[i].descricao})
+      }
+      console.log(sprintsList)
+    }
+  }, [sprints]);
+
+  const handleCadastrarNotaPacer = () => {
+    console.log(equipe, sprint, notaPacer);
+  };
 
   const handleVoltarParaHome = () => {
     navigate("/home-prof");
-  };
-
-  function handleFetchDataSprint() {
-    obterTodasAsEquipes();
-    obterTodasAsSprints();
-  }
-
-  const fetchCadastrarNotapacer = async () => {
-    await Axios.post(`http://127.0.0.1:5000/cadastrarNotaSprint`, {
-      idEquipe,
-      idSprint,
-      nota,
-    }).then((response) => {
-      console.log(response);
-    });
-    console.log(
-      "Sprint: " + idSprint + " Equipe: " + idEquipe + " Nota: " + nota
-    );
-  };
-
-  function handleFetchCadastrarNotaPacer() {
-    fetchCadastrarNotapacer();
-  }
-
-  // obter todas as equipes no banco de dados
-  const obterTodasAsEquipes = async () => {
-    Axios.get(`http://127.0.0.1:5000/obterTodasEquipes`).then((response) =>
-      setEquipesList(response.data)
-    );
-    console.log(equipesList[0]);
-    if (equipes.length <= 0) {
-      for (let i = 0; i < equipesList?.length; i++) {
-        equipes.push({
-          value: equipesList[i].idequipe,
-          label: equipesList[i].equipe,
-        });
-      }
-    } else {
-      console.log(equipes);
-    }
-  };
-
-  // obter todas as sprints
-  const obterTodasAsSprints = async () => {
-    Axios.get("http://127.0.0.1:5000/obterSprintSemestreAno", {
-      params: { semestre: semestre, ano: ano },
-    }).then((response) => {
-      setSprintsList(response.data);
-    });
-    console.log(sprintsList[0]);
-    if (sprints.length <= 0) {
-      for (let i = 0; i < sprintsList?.length; i++) {
-        sprints.push({
-          value: sprintsList[i].idsprint,
-          label: sprintsList[i].descricao,
-        });
-      }
-    } else {
-      console.log(sprints);
-    }
   };
 
   return (
     <>
       <Grid container flexDirection="column" alignItems="center">
         <Grid item sx={{ marginTop: 10 }}>
-          <Typography variant="h3">Gestão Sprint</Typography>
-
-          <Button onClick={handleVoltarParaHome}>Voltar</Button>
+        <Typography variant="h4" fontWeight="bold" textAlign="center" sx={{ paddingBottom: 5 }}>Gestão Sprint</Typography>
           <Paper elelvation={2} sx={{ padding: 5, width: 500 }}>
-            <Grid container direction="column" spacing={2}>
               <Grid item>
                 <Grid
                   item
@@ -136,39 +120,25 @@ function GestaoSprint() {
                   <Grid item sx={{ alignSelf: "center", width: 500 }}>
                     <InputLabel id="sprint-select-label">Sprint</InputLabel>
                     <Select
-                      labelId="sprint-select-label"
-                      placeholder="Sprint"
-                      select
-                      fullWidth
-                      onChange={(e) => setIdSprint(e.target.value)}
-                      value={idSprint}
-                      defaultValue={1}
-                    >
-                      {sprints.map((sprint) => (
-                        <MenuItem key={sprint.id} value={sprint.value}>
-                          {sprint.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
+                    label="Sprint"
+                    variant="outlined"
+                    placeholder="Sprint"
+                    required
+                    options={sprintsList}
+                    onChange={event => setSprintId(event.value)}
+                    />
                   </Grid>
 
                   <Grid item sx={{ alignSelf: "center", width: 500 }}>
                     <InputLabel id="equipe-select-label">Equipe</InputLabel>
                     <Select
-                      labelId="equipe-select-label"
-                      select
-                      fullWidth
-                      placeholder="Equipe"
-                      onChange={(e) => setIdEquipe(e.target.value)}
-                      value={idEquipe}
-                      defaultValue={1}
-                    >
-                      {equipes.map((equipe) => (
-                        <MenuItem key={equipe.id} value={equipe.value}>
-                          {equipe.label}
-                        </MenuItem>
-                      ))}
-                    </Select>
+                    label="Equipe"
+                    variant="outlined"
+                    placeholder="Equipe"
+                    required
+                    options={equipes}
+                    onChange={event => setIdEquipe(event.value)}
+                    />
                   </Grid>
                   <Grid
                     item
@@ -180,7 +150,8 @@ function GestaoSprint() {
                     <TextField
                       type="number"
                       label="Nota Pacer"
-                      onChange={(e) => setNota(e.target.value)}
+                      onChange={event => setNotaPacer(event.value)}
+                      value={notaPacer}
                     />
                   </Grid>
                   <Grid item>
@@ -192,9 +163,17 @@ function GestaoSprint() {
                       Cadastrar nota pacer
                     </Button>
                   </Grid>
+                  <Grid item>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      onClick={handleVoltarParaHome}
+                    >
+                      Voltar
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
+              </Grid>            
           </Paper>
         </Grid>
       </Grid>

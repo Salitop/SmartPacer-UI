@@ -18,7 +18,6 @@ function ViewPacer() {
   const [alunos, setAlunos] = useState([]);
   const [alunoAlvoId, setAlunoAlvoId] = useState();
   const [alunosList, setAlunosList] = useState([]);
-  const [idEquipe, setIdEquipe] = useState();
   const [sprintsList, setSprintsList] = useState([]);
   const [notaP, setNotaP] = useState();
   const [notaA, setNotaA] = useState();
@@ -78,6 +77,7 @@ React.useEffect(() => {
           label: sprint.descricao,
         }));
         setSprintsList(newSprintsList);
+        console.log(sprintsList);
       }
     }
   }, [alunos, sprints]);
@@ -107,7 +107,7 @@ React.useEffect(() => {
   }
 
   function eventoVoltar() {
-    navigate("/home");
+    navigate("/home-aluno");
   }
 
   return (
