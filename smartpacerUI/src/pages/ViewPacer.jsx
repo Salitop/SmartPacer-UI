@@ -35,15 +35,15 @@ function ViewPacer() {
   const fetchDataEquipe = async () => {
     setStatusEquipe(false);
     setStatusSprint(false);
-    Axios.get(`http://edryanmaciel.pythonanywhere.com/obterTodasEquipes`).then((response) => setValues(response.data))
+    Axios.get(`https://edryanmaciel.pythonanywhere.com/obterTodasEquipes`).then((response) => setValues(response.data))
   }
 
   const fetchDataSprint = async () => {
-    Axios.get('http://edryanmaciel.pythonanywhere.com/obterSprintSemestreAno', { params: {"semestre": semestre, "ano": ano}}).then((response) => {setSprints(response.data)});
+    Axios.get('https://edryanmaciel.pythonanywhere.com/obterSprintSemestreAno', { params: {"semestre": semestre, "ano": ano}}).then((response) => {setSprints(response.data)});
   }
 
   const fetchDataNotas = async () => {
-    Axios.get('http://edryanmaciel.pythonanywhere.com/visualizarNotasEquipeSprint', { params: {"idequipe": idEquipe, "idsprint": idSprint}}).then((response) => {setNotasPacer(response.data)});
+    Axios.get('https://edryanmaciel.pythonanywhere.com/visualizarNotasEquipeSprint', { params: {"idequipe": idEquipe, "idsprint": idSprint}}).then((response) => {setNotasPacer(response.data)});
   }
 
   // buscar Equipes

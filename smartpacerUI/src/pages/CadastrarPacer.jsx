@@ -39,11 +39,11 @@ function ViewPacer() {
         semestreAtual = 2;
     }
 
-    const resultSprint = await Axios.get("http://edryanmaciel.pythonanywhere.com/obterSprintSemestreAno", {
+    const resultSprint = await Axios.get("https://edryanmaciel.pythonanywhere.com/obterSprintSemestreAno", {
                                      params: { semestre: semestreAtual, ano: currentYear },
     });
 
-    const resultAluno = await Axios.get("http://edryanmaciel.pythonanywhere.com/obterUsuarioPorIdUsuario", {
+    const resultAluno = await Axios.get("https://edryanmaciel.pythonanywhere.com/obterUsuarioPorIdUsuario", {
                               params: { idusuario: alunoId }, /*variavel global para pegar o Id da Equipe no qual o aluno está*/
     });
     setAlunos(resultAluno.data);
@@ -52,7 +52,7 @@ function ViewPacer() {
 
 const fetchDataNotaPacer = async () => {
   setPontosPacer(0);
-  const result = await Axios.get("http://edryanmaciel.pythonanywhere.com/obterValorEquipeSprint", {
+  const result = await Axios.get("https://edryanmaciel.pythonanywhere.com/obterValorEquipeSprint", {
                                    params: { idequipe: alunos[0].idEquipe, idsprint: sprintId },
   });
   setPontosPacer(result.data.valorSprint);
@@ -99,7 +99,7 @@ React.useEffect(() => {
 
     console.log(dadosPacer);
 
-    Axios.post('http://edryanmaciel.pythonanywhere.com/cadastrarNotas', dadosPacer, {
+    Axios.post('https://edryanmaciel.pythonanywhere.com/cadastrarNotas', dadosPacer, {
         headers: {
           'Content-Type': 'application/json'
         }

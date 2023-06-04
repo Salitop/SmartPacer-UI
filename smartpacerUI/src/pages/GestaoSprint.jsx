@@ -43,11 +43,11 @@ function GestaoSprint() {
     } else {
         semestreAtual = 2;
     }
-    Axios.get('http://edryanmaciel.pythonanywhere.com/obterSprintSemestreAno', { params: {"semestre": semestreAtual, "ano": currentYear}}).then((response) => {setSprints(response.data)});
+    Axios.get('https://edryanmaciel.pythonanywhere.com/obterSprintSemestreAno', { params: {"semestre": semestreAtual, "ano": currentYear}}).then((response) => {setSprints(response.data)});
   }
 
   const fetchDataEquipe = async () => {
-    Axios.get(`http://edryanmaciel.pythonanywhere.com/obterTodasEquipes`).then((response) => setValues(response.data))
+    Axios.get(`https://edryanmaciel.pythonanywhere.com/obterTodasEquipes`).then((response) => setValues(response.data))
   }
 
     // carregarEquipes

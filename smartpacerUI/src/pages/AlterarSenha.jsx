@@ -27,7 +27,7 @@ function AlterarSenha() {
   // por enquanto apenas mostra os valores inseridos no formulario e navega
   // para a tela home
   const handleChangePassword = async () => {
-    const resp = await Axios.post("http://127.0.0.1:5000/alterarSenha", {
+    const resp = await Axios.post("https://edryanmaciel.pythonanywhere.com/alterarSenha", {
       idUsuario,
       novaSenha,
       novaSenhaConf,
